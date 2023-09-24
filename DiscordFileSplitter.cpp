@@ -26,12 +26,14 @@ std::string ToString(u64 number, u32 minChars)
 {
 	std::string result;
 	result.resize(minChars);
+	std::lldiv_t res = {};
 	for (int i = minChars-1; i >= 0; i--)
 	{
-		std::lldiv_t res = std::lldiv(number, 10);
+		res = std::lldiv(number, 10);
 		number = res.quot;
 		result[i] = '0' + static_cast<u8>(res.rem);
 	}
+	if (res.quot) result.append("INVALID");
 	return result;
 }
 

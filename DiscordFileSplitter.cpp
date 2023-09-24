@@ -44,7 +44,7 @@ u32 GetTotalFileCount(u64 sizeIn, u64 maxSize)
 
 u32 GetCharCount(u64 input)
 {
-	return static_cast<u32>(std::floor(std::log10(input) + 1));
+	return static_cast<u32>(std::floor(std::log10(input-1) + 1));
 }
 
 bool ReadInteger(u64& i, char const* s)

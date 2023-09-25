@@ -2,6 +2,8 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <cmath>
+#include <cstring>
 
 #include "Types.hpp"
 
@@ -206,7 +208,7 @@ void HandleSplit(Parameters& params)
 			sz = params.maxFileSize;
 		}
 		std::ofstream out;
-		out.open(params.destination.string().append(".part" + ToString(i, charCount)), std::ios::binary | std::ios_base::trunc | std::ios::beg);
+		out.open(params.destination.string().append(".part" + ToString(i, charCount)), std::ios::binary | std::ios::trunc);
 		out.write(data + delta, sz);
 		out.close();
 	}
@@ -230,7 +232,7 @@ void HandleFuse(Parameters& params)
 	cleanName.append(".part");
 	int current = 0;
 	std::ofstream out;
-	out.open(params.destination, std::ios::binary | std::ios_base::trunc | std::ios::beg);
+	out.open(params.destination, std::ios::binary | std::ios::trunc);
 	while (true)
 	{
 		std::filesystem::path f = std::string(cleanName).append(ToString(current, charCount));
@@ -260,6 +262,6 @@ int main(int argc, char** argv)
 	{
 		HandleSplit(params);
 	}
-	
+
 	return 0;
 }
